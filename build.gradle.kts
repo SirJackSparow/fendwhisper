@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.dg.whisperfend"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
@@ -39,11 +39,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     publishing {
@@ -56,7 +56,7 @@ android {
 
 publishing {
     publications {
-        create<MavenPublication>("release") {
+        register<MavenPublication>("release") {
             groupId = "com.dg.whisperfend"     // group for Maven coordinate
             artifactId = "whisperfend"     // artifact name
             version = "1.0.0-beta"            // version tag
@@ -83,9 +83,9 @@ publishing {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

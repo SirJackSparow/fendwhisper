@@ -1,0 +1,4 @@
+/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/.cxx/Release/5t2w5d6a/arm64-v8a/CMakeFiles/whisper.dir
+/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/.cxx/Release/5t2w5d6a/arm64-v8a/CMakeFiles/whisper_android.dir
+/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/.cxx/Release/5t2w5d6a/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/.cxx/Release/5t2w5d6a/arm64-v8a/CMakeFiles/rebuild_cache.dir

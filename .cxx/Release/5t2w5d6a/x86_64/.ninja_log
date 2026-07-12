@@ -1,0 +1,18 @@
+# ninja log v5
+7	444	1783777984122925143	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-backend-dl.cpp.o	61983123006e71bc
+7	67	1783777983748166740	CMakeFiles/whisper_android.dir/whisper_jni.cpp.o	f462c39a77a8845f
+2	1421	1783777159862736898	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-threading.cpp.o	2c097c8bf51ec958
+2	11094	1783777169541321413	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-quants.c.o	4dd2b30803ea6fdc
+2	2342	1783777160785216177	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-cpu/ggml-cpu.c.o	67b2bc33ae99d34d
+3	5482	1783777163884964866	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-cpu/ggml-cpu.cpp.o	127d42355d4db7e
+1	6106	1783777164551846239	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-backend.cpp.o	5c3b7d9c35dd0de5
+0	26082	1783777184496169028	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/src/whisper.cpp.o	68d68e5c5c1d09ba
+1	6746	1783777165186958675	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml.c.o	cbf248f0863c6bf4
+444	535	1783777984218230000	libwhisper.a	576888b5b4839e4f
+1	1281	1783777159738241401	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-alloc.c.o	511bae027291f49b
+1	6033	1783777164469091671	CMakeFiles/whisper.dir/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-backend-reg.cpp.o	c257a6a058c89def
+535	615	1783777984282934502	/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/build/intermediates/cxx/Release/5t2w5d6a/obj/x86_64/libwhisper_android.so	228ed6d9843225a9
+31	6428	1783815878237543304	CMakeFiles/whisper.dir/whisper_wrapper.cpp.o	8e0e497e637b2bb0
+37	6528	1783815878303474312	CMakeFiles/whisper_android.dir/whisper_jni.cpp.o	f462c39a77a8845f
+6433	8489	1783815880339609000	libwhisper.a	f262810d4084ad80
+8489	10441	1783815882221816136	/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/build/intermediates/cxx/Release/5t2w5d6a/obj/x86_64/libwhisper_android.so	228ed6d9843225a9
