@@ -124,6 +124,11 @@ set_source_files_properties(
 # ===== JNI BRIDGE =====
 add_library(whisper_android SHARED whisper_jni.cpp)
 
+target_link_options(whisper_android PRIVATE
+        "-Wl,-z,max-page-size=16384"
+        "-Wl,-z,common-page-size=16384"
+)
+
 target_include_directories(whisper_android PRIVATE
         ${WHISPER_DIR}/include
         ${WHISPER_DIR}/src

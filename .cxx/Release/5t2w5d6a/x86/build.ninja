@@ -284,7 +284,7 @@ build CMakeFiles/whisper_android.dir/whisper_jni.cpp.o: CXX_COMPILER__whisper_an
 
 build /Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/build/intermediates/cxx/Release/5t2w5d6a/obj/x86/libwhisper_android.so: CXX_SHARED_LIBRARY_LINKER__whisper_android_Release CMakeFiles/whisper_android.dir/whisper_jni.cpp.o | libwhisper.a || libwhisper.a
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D__BIONIC_NO_PAGE_SIZE_MACRO -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O3 -DNDEBUG
-  LINK_FLAGS = -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -Wl,--gc-sections
+  LINK_FLAGS = -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments  -Wl,--gc-sections   -Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384
   LINK_LIBRARIES = libwhisper.a  -landroid  -llog  -ldl  -lm  -latomic  -latomic -lm
   OBJECT_DIR = CMakeFiles/whisper_android.dir
   POST_BUILD = :
