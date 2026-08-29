@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class WhisperManagerImplementation : WhisperManager {
+internal class WhisperManagerImplementation : WhisperManager {
 
     private val engine = WhisperEngine()
     private var modelInitJob: Job? = null

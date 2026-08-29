@@ -4,7 +4,7 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class WhisperEngine {
+internal class WhisperEngine {
 
     companion object {
         private const val TAG = "WhisperEngine"

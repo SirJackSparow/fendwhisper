@@ -11,6 +11,7 @@
 		"commands" : 
 		[
 			"add_library",
+			"target_link_options",
 			"target_link_libraries",
 			"target_compile_options",
 			"target_include_directories"
@@ -27,25 +28,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 75,
+				"line" : 125,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 88,
+				"line" : 127,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 83,
+				"line" : 144,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 77,
+				"line" : 138,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 132,
 				"parent" : 0
 			}
 		]
@@ -59,12 +66,16 @@
 					"fragment" : "-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D__BIONIC_NO_PAGE_SIZE_MACRO -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O3 -DNDEBUG  -fPIC"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"fragment" : "-std=c++17"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"fragment" : "-O3"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-DGGML_USE_CPU"
 				}
 			],
 			"defines" : 
@@ -76,23 +87,23 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/include"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/src"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/include"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"path" : "/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"path" : "/Users/fendy24/AndroidStudioProjects/ChatAndromedax/whisperfend/whisper.cpp/ggml/src/ggml-cpu"
 				}
 			],
@@ -110,7 +121,7 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 2,
+			"backtrace" : 3,
 			"id" : "whisper::@6890427a1f51a3e7e1df"
 		}
 	],
@@ -125,17 +136,42 @@
 			},
 			{
 				"backtrace" : 2,
+				"fragment" : "-Wl,-z,max-page-size=16384",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-Wl,-z,common-page-size=16384",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
 				"fragment" : "libwhisper.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 2,
+				"backtrace" : 3,
 				"fragment" : "-landroid",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 2,
+				"backtrace" : 3,
 				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-ldl",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-latomic",
 				"role" : "libraries"
 			},
 			{

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -54,23 +56,34 @@ android {
     }
 }
 
+// ✅ Load version from version.properties
+val versionPropsFile = rootProject.file("version.properties")
+val versionProps = Properties()
+if (versionPropsFile.exists()) versionProps.load(versionPropsFile.inputStream())
+val versionName = versionProps.getProperty("VERSION_NAME", "1.0.0")
+
+// ✅ Auto increment patch version
+fun incrementVersion(version: String): String {
+    val parts = version.split(".").map { it.toInt() }.toMutableList()
+    parts[2]++
+    return parts.joinToString(".")
+}
+
 publishing {
     publications {
-        register<MavenPublication>("release") {
-            groupId = "com.dg.whisperfend"     // group for Maven coordinate
-            artifactId = "whisperfend"     // artifact name
-            version = "1.0.0-beta"            // version tag
+        create<MavenPublication>("release") {
+            groupId = "com.dg.whisperfend"
+            artifactId = "whisperfend"
+            version = versionName
 
-            afterEvaluate {
-                from(components["release"]) // publish release AAR
-            }
+            afterEvaluate { from(components["release"]) }
         }
     }
 
     repositories {
         maven {
             name = "WhisperFendLib"
-            url = uri("https://maven.pkg.github.com/SirJackSparow/whisperfend")
+            url = uri("https://maven.pkg.github.com/SirJackSparow/fendwhisper")
 
             credentials {
                 username = project.findProperty("gpr.user") as String?
@@ -79,6 +92,16 @@ publishing {
                     ?: System.getenv("TOKEN_GITHUB")
             }
         }
+    }
+}
+
+// ✅ Update version.properties after successful publish
+tasks.named("publish") {
+    doLast {
+        val newVersion = incrementVersion(versionName)
+        versionProps["VERSION_NAME"] = newVersion
+        versionProps.store(versionPropsFile.writer(), null)
+        println("📦 Published version $versionName → Next version: $newVersion")
     }
 }
 

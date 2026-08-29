@@ -41,14 +41,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "whisper::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-whisper-Release-5f33617ada460455893a.json",
+					"jsonFile" : "target-whisper-Release-19a39d0636f7a061d8a1.json",
 					"name" : "whisper",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "whisper_android::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-whisper_android-Release-55d3552ed1f25bfe14e2.json",
+					"jsonFile" : "target-whisper_android-Release-34bac837b49d3c2bd235.json",
 					"name" : "whisper_android",
 					"projectIndex" : 0
 				}
