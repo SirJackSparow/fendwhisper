@@ -60,7 +60,7 @@ android {
 val versionPropsFile = rootProject.file("version.properties")
 val versionProps = Properties()
 if (versionPropsFile.exists()) versionProps.load(versionPropsFile.inputStream())
-val versionName = versionProps.getProperty("VERSION_NAME", "1.0.0")
+val versionName = versionProps.getProperty("VERSION_NAME", "1.1.0")
 
 // ✅ Auto increment patch version
 fun incrementVersion(version: String): String {
