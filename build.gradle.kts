@@ -71,12 +71,37 @@ fun incrementVersion(version: String): String {
 
 publishing {
     publications {
-        create<MavenPublication>("release") {
+        register<MavenPublication>("release") {
             groupId = "com.dg.whisperfend"
             artifactId = "whisperfend"
             version = versionName
 
-            afterEvaluate { from(components["release"]) }
+            afterEvaluate {
+                from(components["release"])
+            }
+
+            pom {
+                name.set("WhisperFend")
+                description.set("Android library for Whisper ASR using whisper.cpp")
+                url.set("https://github.com/SirJackSparow/fendwhisper")
+                licenses {
+                    license {
+                        name.set("The MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("SirJackSparow")
+                        name.set("SirJackSparow")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:github.com/SirJackSparow/fendwhisper.git")
+                    developerConnection.set("scm:git:ssh://github.com/SirJackSparow/fendwhisper.git")
+                    url.set("https://github.com/SirJackSparow/fendwhisper/tree/main")
+                }
+            }
         }
     }
 

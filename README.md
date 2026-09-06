@@ -1,8 +1,12 @@
-# WhisperFend
+# 🎙️ WhisperFend
 
-## Setup
+A professional, high-level Kotlin wrapper for **whisper.cpp** on Android. It provides a state-driven API, handles JNI lifecycle management, and simplifies model loading for high-performance on-device Speech-to-Text.
 
-Add to your app's `build.gradle.kts`:
+---
+
+## 📦 Setup
+
+Add the following to your app's `build.gradle.kts`:
 
 ```kotlin
 repositories {
@@ -20,84 +24,66 @@ dependencies {
 }
 ```
 
-## How to use
+---
 
-### 1. Upload a model
+## 🚀 Quick Start
 
-After downloading a GGUF model, use `uploadModelFile()` to copy it into the app and load it:
+### 1. Load a Model
+Use a GGUF/BIN model file. The library validates the file signature, handles background copying to internal storage, and initializes the native engine.
 
 ```kotlin
-import com.dg.whisperfend.implement.MainWhisperFend
+import com.dg.whisperfend.WhisperFend
 
-MainWhisperFend.uploadModelFile(modelUri, context,
-    onSuccess = { message ->
-        Log.d("Whisper", message)
-    },
-    onError = { isValidationError, errorMessage ->
-        Log.e("Whisper", "Error (validation=$isValidationError): $errorMessage")
+WhisperFend.instance.loadModel(
+    uri = modelUri,
+    context = context,
+    onSuccess = { message -> Log.d("Whisper", "✅ $message") },
+    onError = { isValidation, error -> Log.e("Whisper", "❌ $error") }
+)
+```
+
+### 2. Monitor Engine State
+Observe the `state` flow to react to engine status changes (Idle, Loading, Ready, Transcribing, Error).
+
+```kotlin
+lifecycleScope.launch {
+    WhisperFend.instance.state.collect { state ->
+        when (state) {
+            is WhisperState.Loading -> showLoadingSpinner()
+            is WhisperState.Ready -> enableTranscribeButton()
+            is WhisperState.Transcribing -> showProcessingWaveform()
+            is WhisperState.Error -> showError(state.message)
+            else -> Unit
+        }
     }
-)
-```
-
-This checks the file header (GGUF/GGML magic bytes), copies it to internal storage, and initializes the engine. If the same file already exists, it skips the copy.
-
-### 2. Transcribe audio
-
-Pass raw PCM audio as `FloatArray` (16kHz mono, normalized -1.0 to 1.0):
-
-```kotlin
-val text = MainWhisperFend.transcribe(audioFloats)
-if (text != null) {
-    // transcription
-} else {
-    // no speech detected or model not loaded
 }
 ```
 
-Thread note: whisper.cpp is not thread-safe, so run one transcription at a time.
-
-### 3. Release
-
-```kotlin
-MainWhisperFend.release()
-```
-
-Frees native memory. Call when leaving the screen or closing the app.
-
-## Audio format
-
-Audio needs to be **16kHz mono PCM** as `FloatArray` in **[-1.0, 1.0]**.
-
-### Recording from microphone
+### 3. Transcribe Audio
+Transcription is a suspending function that accepts a `FloatArray` (PCM 16kHz mono, normalized -1.0 to 1.0) and returns a `Result<String>`.
 
 ```kotlin
-// Record: 16kHz, mono, 16-bit PCM
-val recorder = AudioRecord(
-    MediaRecorder.AudioSource.MIC,
-    16000, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
-    bufferSize
-)
-recorder.startRecording()
-
-// Collect chunks
-val shortBuffer = mutableListOf<Short>()
-val chunk = ShortArray(1024)
-while (isRecording) {
-    val read = recorder.read(chunk, 0, chunk.size)
-    if (read > 0) for (i in 0 until read) shortBuffer.add(chunk[i])
+val audioData: FloatArray = // PCM 16kHz mono normalized data
+viewModelScope.launch {
+    val result = WhisperFend.instance.transcribe(audioData, numThreads = 4)
+    result.onSuccess { text ->
+        println("Transcription: $text")
+    }.onFailure { e ->
+        println("Failed: ${e.message}")
+    }
 }
-recorder.stop()
-recorder.release()
-
-// Convert to normalized FloatArray
-val audio = FloatArray(shortBuffer.size) { i -> shortBuffer[i] / 32768.0f }
-val text = MainWhisperFend.transcribe(audio)
 ```
 
-### Converting existing audio
+---
+
+## 🛠️ Audio Format Requirements
+
+Audio must be **16kHz mono PCM** as a `FloatArray` normalized to **[-1.0, 1.0]**.
+
+### Conversion Examples:
 
 ```kotlin
-// ShortArray → FloatArray
+// ShortArray (16-bit PCM) → FloatArray
 val floats = FloatArray(shorts.size) { i -> shorts[i] / 32768.0f }
 
 // ByteArray (16-bit PCM, little-endian) → FloatArray
@@ -106,51 +92,22 @@ val floats = FloatArray(bytes.size / 2) { i ->
 }
 ```
 
-## Example
+---
+
+## 🧹 Cleanup
+Always release native resources when the engine is no longer needed (e.g., in `onCleared()` of a ViewModel).
 
 ```kotlin
-class MyViewModel(private val context: Context) : ViewModel() {
-
-    private val _isModelLoaded = MutableStateFlow(false)
-    private val _isTranscribing = MutableStateFlow(false)
-
-    fun loadModel(uri: Uri) {
-        MainWhisperFend.uploadModelFile(uri, context,
-            onSuccess = { _isModelLoaded.value = true },
-            onError = { _, msg -> Log.e("Whisper", msg) }
-        )
-    }
-
-    suspend fun transcribe(audio: FloatArray): String? {
-        if (!_isModelLoaded.value || _isTranscribing.value) return null
-        _isTranscribing.value = true
-        return try {
-            MainWhisperFend.transcribe(audio)
-        } finally {
-            _isTranscribing.value = false
-        }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        MainWhisperFend.release()
-    }
-}
+WhisperFend.instance.release()
 ```
 
-## Model files
+---
 
-Works with **GGUF** and **GGML** models from [whisper.cpp](https://huggingface.co/ggerganov/whisper.cpp).
+## 📖 Detailed Documentation
+For more technical details, refer to:
+- [Implementation Guide](implementation.md): How to build and integrate.
+- [Technical Documentation](documentation.md): JNI bridge and native resource details.
 
-`ggml-tiny.gguf` (~75 MB) is a good starting point.
-
-```kotlin
-val request = DownloadManager.Request(
-    "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.gguf".toUri()
-).apply {
-    setTitle("Downloading Whisper model")
-    setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-    setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, "ggml-tiny.gguf")
-}
-downloadManager.enqueue(request)
-```
+## 📄 License
+This library is provided under the **MIT License**.
+Based on [whisper.cpp](https://github.com/ggerganov/whisper.cpp) by Georgi Gerganov.
